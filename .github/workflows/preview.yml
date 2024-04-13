@@ -43,7 +43,9 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          BASE: /${{env.REPOSITORY_NAME}}
+          BASE: /${{env.REPOSITORY_NAME}}/preview-${{ github.event.number }}
+      - name: Copy
+        run: mv ./dist "./preview-${{ github.event.number }}" && mkdir dist && mv "./preview-${{ github.event.number }}" "./dist"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
